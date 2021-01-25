@@ -17,6 +17,7 @@ package ocgrpc
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"strings"
 	"sync/atomic"
@@ -127,6 +128,7 @@ func handleRPCInPayload(ctx context.Context, s *stats.InPayload) {
 }
 
 func handleRPCEnd(ctx context.Context, s *stats.End) {
+	fmt.Println("IN HANDLE RPC END")
 	d, ok := ctx.Value(rpcDataKey).(*rpcData)
 	if !ok {
 		if grpclog.V(2) {
