@@ -68,7 +68,7 @@ var (
 	ServerCompletedRPCsView = &view.View{
 		Name:        "grpc.io/server/completed_rpcs",
 		Description: "Count of RPCs by method and status.",
-		TagKeys:     []tag.Key{KeyServerMethod, KeyServerStatus},
+		TagKeys:     []tag.Key{KeyServerMethod, KeyServerStatus, KeyRevisionName},
 		Measure:     ServerLatency,
 		Aggregation: view.Count(),
 	}

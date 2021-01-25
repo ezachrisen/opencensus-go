@@ -65,6 +65,11 @@ var (
 	KeyServerStatus = tag.MustNewKey("grpc_server_status")
 )
 
+var (
+	KeyRevisionName = tag.MustNewKey("cloud_run_revision_name")
+	KeyLocationName = tag.MustNewKey("cloud_run_location_name")
+)
+
 // Client tags are applied to measures at the end of each RPC.
 var (
 	KeyClientMethod = tag.MustNewKey("grpc_client_method")
@@ -148,7 +153,8 @@ func handleRPCEnd(ctx context.Context, s *stats.End) {
 		ocstats.RecordWithOptions(ctx,
 			ocstats.WithTags(
 				tag.Upsert(KeyClientMethod, methodName(d.method)),
-				tag.Upsert(KeyClientStatus, st)),
+				tag.Upsert(KeyClientStatus, st),
+				tag.Upsert(KeyRevisionName, "FORKED_REVISION")),
 			ocstats.WithAttachments(attachments),
 			ocstats.WithMeasurements(
 				ClientSentBytesPerRPC.M(atomic.LoadInt64(&d.sentBytes)),
